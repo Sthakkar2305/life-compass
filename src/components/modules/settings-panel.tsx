@@ -43,9 +43,11 @@ export function SettingsPanel() {
       negativePoints: data.negativePoints,
       motivationFavorites: data.motivationFavorites,
       tasks: data.tasks,
+      naamJapCounts: data.naamJapCounts,
+      nameWriteCounts: data.nameWriteCounts,
       settings: data.settings
     }),
-    [data.diaryPages, data.habits, data.motivationFavorites, data.negativePoints, data.settings, data.tasks]
+    [data.diaryPages, data.habits, data.motivationFavorites, data.naamJapCounts, data.nameWriteCounts, data.negativePoints, data.settings, data.tasks]
   );
 
   useEffect(() => {
