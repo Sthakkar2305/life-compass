@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 42 68% 94%;
+  --foreground: 222 38% 12%;
+  --card: 40 64% 96%;
+  --card-foreground: 222 38% 12%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 30 55% 11%;
+  --success: 142 71% 45%;
+  --success-foreground: 0 0% 100%;
+  --muted: 40 35% 88%;
+  --muted-foreground: 222 16% 42%;
+  --destructive: 0 82% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 35 28% 78%;
+  --input: 35 30% 82%;
+  --ring: 221 83% 53%;
+}
+
+.dark {
+  --background: 222 38% 8%;
+  --foreground: 40 38% 92%;
+  --card: 222 34% 12%;
+  --card-foreground: 40 38% 92%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 38 92% 54%;
+  --accent-foreground: 30 55% 9%;
+  --success: 142 70% 47%;
+  --success-foreground: 0 0% 100%;
+  --muted: 222 24% 18%;
+  --muted-foreground: 40 16% 70%;
+  --destructive: 0 74% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 222 20% 24%;
+  --input: 222 22% 21%;
+  --ring: 217 91% 60%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(245, 158, 11, 0.24), transparent 30rem),
+    radial-gradient(circle at 86% 12%, rgba(37, 99, 235, 0.18), transparent 32rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(244, 229, 199, 0.72)),
+    hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+html[data-font="serif"] body {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+html[data-font="notebook"] body {
+  font-family: var(--font-note), Georgia, serif;
+}
+
+.dark body {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(245, 158, 11, 0.14), transparent 28rem),
+    radial-gradient(circle at 88% 12%, rgba(37, 99, 235, 0.22), transparent 35rem),
+    linear-gradient(135deg, rgba(12, 17, 29, 0.94), rgba(27, 21, 16, 0.94)),
+    hsl(var(--background));
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.32);
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.paper-texture {
+  background-color: rgba(255, 250, 238, 0.88);
+  background-image:
+    linear-gradient(90deg, rgba(120, 87, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(120, 87, 42, 0.032) 1px, transparent 1px),
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.68), transparent 15rem),
+    radial-gradient(circle at 88% 82%, rgba(245, 158, 11, 0.1), transparent 16rem);
+  background-size: 26px 26px, 26px 26px, auto, auto;
+}
+
+.dark .paper-texture {
+  background-color: rgba(24, 22, 18, 0.88);
+  background-image:
+    linear-gradient(90deg, rgba(255, 241, 210, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 241, 210, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.08), transparent 15rem),
+    radial-gradient(circle at 88% 82%, rgba(245, 158, 11, 0.09), transparent 16rem);
+}
+
+.leather-texture {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.14), transparent 10rem),
+    radial-gradient(circle at 82% 75%, rgba(245, 158, 11, 0.18), transparent 12rem),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 7px),
+    linear-gradient(135deg, #5b2b16, #1f1210 58%, #0f172a);
+}
+
+.wood-texture {
+  background:
+    repeating-linear-gradient(14deg, rgba(255, 255, 255, 0.06) 0 2px, rgba(0, 0, 0, 0.04) 2px 9px),
+    linear-gradient(135deg, #8a5a2c, #42210f);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 60px rgba(44, 33, 16, 0.12), inset 0 1px 0 rgba(255,255,255,0.38);
+  backdrop-filter: blur(22px);
+}
+
+.dark .glass-panel {
+  background: rgba(17, 24, 39, 0.62);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.book-spine::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 22px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(0,0,0,.34), rgba(255,255,255,.07), transparent);
+  opacity: .65;
+}
+
+.ink-lines {
+  background-image: linear-gradient(to bottom, transparent 31px, rgba(37, 99, 235, 0.16) 32px);
+  background-size: 100% 32px;
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

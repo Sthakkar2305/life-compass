@@ -1,0 +1,1 @@
+self.addEventListener("sync",n=>{"life-book-sync"===n.tag&&n.waitUntil(Promise.resolve())}),self.addEventListener("notificationclick",n=>{n.notification.close(),n.waitUntil(self.clients.matchAll({type:"window",includeUncontrolled:!0}).then(n=>{const e=n.find(n=>n.url.includes(self.location.origin));return e?e.focus():self.clients.openWindow("/")}))});
