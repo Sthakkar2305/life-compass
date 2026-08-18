@@ -1,8 +1,12 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "app.netlify.life_compaass.twa",
-        "sha256_cert_fingerprints": ["13:3B:A0:21:A6:C5:EF:38:31:D0:4B:8C:AA:58:73:30:64:F0:D7:9E:E1:62:75:8F:A8:06:46:DE:90:AF:48:2C"]
-      }
-    }]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.lifecompass.app",
+      "sha256_cert_fingerprints": [
+        "C7:44:A9:F6:51:0F:E7:E0:74:61:3B:F2:81:04:F1:35:09:71:52:42:88:46:F6:47:DC:29:AA:00:53:8B:11:0F"
+      ]
+    }
+  }
+]
