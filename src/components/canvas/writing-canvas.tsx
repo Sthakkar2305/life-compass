@@ -94,11 +94,16 @@ export function WritingCanvas({ value, onChange, fullscreen, onToggleFullscreen 
     context.globalCompositeOperation = tool === "eraser" ? "destination-out" : "source-over";
     context.strokeStyle = color;
     context.globalAlpha = tool === "pencil" ? 0.48 : tool === "marker" ? 0.28 : 1;
-    context.lineWidth = (tool === "marker" ? thickness * 2.4 : thickness) * (window.devicePixelRatio || 1);
+    
+    let widthMultiplier = 1;
+    if (tool === "marker") widthMultiplier = 2.4;
+    if (tool === "eraser") widthMultiplier = 6;
+    
+    context.lineWidth = thickness * widthMultiplier * (window.devicePixelRatio || 1);
   };
 
   const onPointerDown = (event: React.PointerEvent<HTMLCanvasElement>) => {
-    if (palmGuard && event.pointerType === "touch" && event.width > 40) return;
+    if (palmGuard && tool !== "eraser" && event.pointerType === "touch" && event.width > 40) return;
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;

@@ -5,7 +5,7 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import { AppShell } from "@/components/shell/app-shell";
 import { useLifeStore } from "@/stores/life-store";
 import { hexToHsl } from "@/lib/utils";
-import { TodoNotifier } from "@/components/shell/todo-notifier";
+import { SystemNotifier } from "@/components/shell/system-notifier";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const hydrate = useLifeStore((state) => state.hydrate);
@@ -29,7 +29,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <Tooltip.Provider delayDuration={250}>
       <AppShell>{children}</AppShell>
-      <TodoNotifier />
+      <SystemNotifier />
     </Tooltip.Provider>
   );
 }
