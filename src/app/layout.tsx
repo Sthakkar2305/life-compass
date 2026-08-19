@@ -22,17 +22,17 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  applicationName: "Life Changer Book",
+  applicationName: "Life Compass",
   title: {
-    default: "Life Changer Book",
-    template: "%s | Life Changer Book"
+    default: "Life Compass",
+    template: "%s | Life Compass"
   },
   description: "When you are stuck in life, open this book.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Life Changer Book"
+    title: "Life Compass"
   },
   formatDetection: {
     telephone: false
@@ -49,7 +49,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
+  maximumScale: 1,
+  userScalable: false,
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#F8F1E3" },

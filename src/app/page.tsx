@@ -41,20 +41,20 @@ const cards = [
     gradient: "bg-[linear-gradient(135deg,#0f766e,#2563eb,#111827)]",
     accent: "bg-lime-200"
   },
-  {
-    title: "Naam Jap",
-    href: "/naam-jap",
-    icon: Mic,
-    gradient: "bg-[linear-gradient(135deg,#db2777,#4f46e5,#0f172a)]",
-    accent: "bg-pink-300"
-  },
-  {
-    title: "Name Write",
-    href: "/name-write",
-    icon: Edit2,
-    gradient: "bg-[linear-gradient(135deg,#047857,#0ea5e9,#1e3a8a)]",
-    accent: "bg-teal-200"
-  }
+  // {
+  //   title: "Naam Jap",
+  //   href: "/naam-jap",
+  //   icon: Mic,
+  //   gradient: "bg-[linear-gradient(135deg,#db2777,#4f46e5,#0f172a)]",
+  //   accent: "bg-pink-300"
+  // },
+  // {
+  //   title: "Name Write",
+  //   href: "/name-write",
+  //   icon: Edit2,
+  //   gradient: "bg-[linear-gradient(135deg,#047857,#0ea5e9,#1e3a8a)]",
+  //   accent: "bg-teal-200"
+  // }
 ];
 
 export default function HomePage() {

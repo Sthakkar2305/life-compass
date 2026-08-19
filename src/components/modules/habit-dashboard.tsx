@@ -222,8 +222,9 @@ export function HabitDashboard() {
                       }}
                       className={cn(
                         "focus-ring grid size-16 shrink-0 place-items-center rounded-3xl text-3xl shadow-lg transition active:scale-95",
-                        completed ? "bg-success text-success-foreground" : "bg-white/70 dark:bg-white/10"
+                        completed ? "text-white" : "bg-white/70 dark:bg-white/10"
                       )}
+                      style={completed ? { backgroundColor: habit.color } : undefined}
                       aria-label={`Toggle ${habit.name}`}
                     >
                       {completed ? "✓" : habit.icon}

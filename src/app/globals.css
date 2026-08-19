@@ -49,11 +49,15 @@
 html {
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
 }
 
 body {
   min-height: 100vh;
   overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior-y: none;
   background:
     radial-gradient(circle at 12% 8%, rgba(245, 158, 11, 0.24), transparent 30rem),
     radial-gradient(circle at 86% 12%, rgba(37, 99, 235, 0.18), transparent 32rem),
@@ -88,6 +92,17 @@ input,
 textarea,
 select {
   -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea {
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+.selectable-text {
+  user-select: auto;
+  -webkit-user-select: auto;
 }
 
 .paper-texture {

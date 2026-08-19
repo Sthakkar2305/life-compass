@@ -32,6 +32,7 @@ type LifeState = LifeData & {
   toggleHabitCompletion: (id: string, dateKeyValue?: string) => void;
   addNegativePoint: (input: NegativeInput) => string;
   updateNegativePoint: (id: string, patch: Partial<NegativePoint>) => void;
+  toggleNegativeCompletion: (id: string, dateKeyValue: string, state: "avoided" | "failed") => void;
   deleteNegativePoint: (id: string) => void;
   addMotivationFavorite: (input: Omit<MotivationFavorite, "id" | "createdAt">) => void;
   removeMotivationFavorite: (id: string) => void;
@@ -148,6 +149,7 @@ export const useLifeStore = create<LifeState>((set, get) => ({
     const point: NegativePoint = {
       ...input,
       id,
+      completions: {},
       createdAt: now,
       updatedAt: now
     };
@@ -159,6 +161,23 @@ export const useLifeStore = create<LifeState>((set, get) => ({
     set((state) => ({
       negativePoints: state.negativePoints.map((point) =>
         point.id === id ? { ...point, ...patch, updatedAt: new Date().toISOString() } : point
+      )
+    }));
+    persistSoon(get);
+  },
+  toggleNegativeCompletion: (id, dateKeyValue, state) => {
+    set((stateObj) => ({
+      negativePoints: stateObj.negativePoints.map((point) =>
+        point.id === id
+          ? {
+              ...point,
+              completions: {
+                ...point.completions,
+                [dateKeyValue]: state
+              },
+              updatedAt: new Date().toISOString()
+            }
+          : point
       )
     }));
     persistSoon(get);

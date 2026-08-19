@@ -52,6 +52,7 @@ export type NegativePoint = {
   progress: number;
   notes: string;
   reflection: string;
+  completions: Record<string, "avoided" | "failed">;
   createdAt: string;
   updatedAt: string;
 };

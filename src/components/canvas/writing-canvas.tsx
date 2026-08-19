@@ -43,8 +43,6 @@ export function WritingCanvas({ value, onChange, fullscreen, onToggleFullscreen 
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "rgba(255,250,238,0.01)";
-    context.fillRect(0, 0, canvas.width, canvas.height);
     if (!dataUrl) return;
     const image = new Image();
     image.onload = () => context.drawImage(image, 0, 0, canvas.width, canvas.height);

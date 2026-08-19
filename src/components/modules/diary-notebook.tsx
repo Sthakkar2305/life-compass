@@ -72,6 +72,7 @@ export function DiaryNotebook() {
   const clock = useClock(IST_TIMEZONE);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+  const [moodFilter, setMoodFilter] = useState<Mood | "all">("all");
   const [draftTitle, setDraftTitle] = useState("");
   const [draftContent, setDraftContent] = useState("");
   const [mode, setMode] = useState<"typing" | "handwriting">("typing");
@@ -122,11 +123,12 @@ export function DiaryNotebook() {
   const filteredPages = useMemo(() => {
     const value = search.trim().toLowerCase();
     return [...diaryPages]
+      .filter((page) => (moodFilter === "all" ? true : page.mood === moodFilter))
       .filter((page) =>
         value ? `${page.title} ${page.content} ${page.tags.join(" ")}`.toLowerCase().includes(value) : true
       )
       .sort((a, b) => b.dateKey.localeCompare(a.dateKey) || b.updatedAt.localeCompare(a.updatedAt));
-  }, [diaryPages, search]);
+  }, [diaryPages, search, moodFilter]);
 
   const grouped = useMemo(() => groupPages(filteredPages), [filteredPages]);
 
@@ -356,6 +358,29 @@ export function DiaryNotebook() {
             <div className="relative">
               <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
               <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search diary" className="pl-10" />
+            </div>
+            <div className="mt-3 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+              <Button
+                size="sm"
+                variant={moodFilter === "all" ? "default" : "secondary"}
+                onClick={() => setMoodFilter("all")}
+                className="shrink-0"
+              >
+                All
+              </Button>
+              {moods.map((mood) => (
+                <Button
+                  key={mood.value}
+                  size="iconSm"
+                  variant={moodFilter === mood.value ? "default" : "secondary"}
+                  onClick={() => setMoodFilter(mood.value)}
+                  className="shrink-0"
+                  aria-label={mood.value}
+                  title={mood.value}
+                >
+                  <span aria-hidden>{mood.label}</span>
+                </Button>
+              ))}
             </div>
             <div className="mt-3 flex gap-2">
               <Input

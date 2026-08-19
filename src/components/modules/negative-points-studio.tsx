@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { Textarea } from "@/components/ui/textarea";
 import { useConfetti } from "@/hooks/use-confetti";
+import { lastNDays, todayKey } from "@/lib/date";
 import { cn } from "@/lib/utils";
 import { useLifeStore } from "@/stores/life-store";
 import type { NegativeStatus } from "@/types/life";
@@ -69,8 +70,10 @@ export function NegativePointsStudio() {
   const addNegativePoint = useLifeStore((state) => state.addNegativePoint);
   const updateNegativePoint = useLifeStore((state) => state.updateNegativePoint);
   const deleteNegativePoint = useLifeStore((state) => state.deleteNegativePoint);
+  const toggleNegativeCompletion = useLifeStore((state) => state.toggleNegativeCompletion);
   const hydrated = useLifeStore((state) => state.hydrated);
   const confetti = useConfetti();
+  const today = todayKey();
   const { register, handleSubmit, reset, watch } = useForm<NegativeForm>({
     defaultValues: {
       title: "",
@@ -98,7 +101,8 @@ export function NegativePointsStudio() {
       status: "Need Attention",
       progress: 0,
       notes: values.notes,
-      reflection: values.reflection
+      reflection: values.reflection,
+      completions: {}
     });
     reset({ title: "", category: "Procrastination", severity: 5, notes: "", reflection: "" });
   };
@@ -221,22 +225,47 @@ export function NegativePointsStudio() {
 
                   <div className="relative mt-5">
                     <div className="mb-2 flex items-center justify-between text-sm font-bold">
-                      <span>Progress</span>
-                      <span>{point.progress}%</span>
+                      <span>Recent 28 Days Tracking</span>
+                      <span>{point.progress}% Avoided</span>
                     </div>
-                    <input
-                      type="range"
-                      min={0}
-                      max={100}
-                      value={point.progress}
-                      onChange={(event) =>
-                        updateNegativePoint(point.id, {
-                          progress: Number(event.target.value),
-                          status: Number(event.target.value) >= 100 ? "Completed" : Number(event.target.value) > 0 ? "Improving" : "Need Attention"
-                        })
-                      }
-                      className="w-full accent-amber-500"
-                    />
+                    <div className="grid grid-cols-7 gap-1">
+                      {lastNDays(28, today).map((key) => {
+                        const state = point.completions?.[key];
+                        return (
+                          <button
+                            key={key}
+                            title={`${key}: ${state || "not tracked"}`}
+                            onClick={() => {
+                              const nextState = state === "avoided" ? "failed" : state === "failed" ? undefined : "avoided";
+                              
+                              // Create the new completions object to calculate the new progress
+                              const newCompletions = { ...point.completions };
+                              if (nextState) newCompletions[key] = nextState;
+                              else delete newCompletions[key];
+                              
+                              const recentDays = lastNDays(30, today);
+                              const tracked = recentDays.filter(d => newCompletions[d]);
+                              const avoided = tracked.filter(d => newCompletions[d] === "avoided");
+                              const newProgress = tracked.length ? Math.round((avoided.length / tracked.length) * 100) : 0;
+                              
+                              toggleNegativeCompletion(point.id, key, nextState as any);
+                              updateNegativePoint(point.id, { 
+                                progress: newProgress,
+                                status: newProgress >= 90 ? "Completed" : newProgress > 50 ? "Improving" : "Need Attention"
+                              });
+                            }}
+                            className={cn(
+                              "aspect-square rounded-[6px] border text-xs font-bold transition",
+                              state === "avoided" ? "border-green-600/30 bg-green-500/20 text-green-700" :
+                              state === "failed" ? "border-red-600/30 bg-red-500/20 text-red-700" :
+                              "bg-muted/40 hover:bg-muted/70"
+                            )}
+                          >
+                            {state === "avoided" ? "✓" : state === "failed" ? "✗" : ""}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {point.notes ? <p className="relative mt-4 rounded-2xl bg-muted/60 p-3 text-sm leading-6">{point.notes}</p> : null}
